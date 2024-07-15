@@ -12,8 +12,8 @@
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
         #map {
-            width: 1195px;
-            height: 821px;
+            width: 942px;
+            height: 635px;
         }
         </style>
         <title></title>
@@ -31,11 +31,12 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="data/TendancedvolutionauprintempsenCpardcennie_0.js"></script>
-        <script src="data/Coursdeau_1.js"></script>
-        <script src="data/Stationmtorologique_2.js"></script>
-        <script src="data/BassinversantCharente_3.js"></script>
+        <script src="data/Bassin_Charente_0.js"></script>
+        <script src="data/TendancedvolutionduprintempsenCpardcnnnie_1.js"></script>
+        <script src="data/Coursdeau_2.js"></script>
+        <script src="data/BassinversantdelaCharente_3.js"></script>
         <script src="data/Villes_4.js"></script>
+        <script src="data/Stationsmtorologiques_5.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -55,7 +56,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[45.14127972890374,-1.3576678302293257],[46.62082110015382,1.6480918290739863]]);
+        }).fitBounds([[45.021296942457134,-1.842820379575367],[46.632244268762975,1.4754850698630062]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -93,7 +94,7 @@
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
-        function pop_TendancedvolutionauprintempsenCpardcennie_0(feature, layer) {
+        function pop_Bassin_Charente_0(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -113,8 +114,73 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['VALUE'] !== null ? autolinker.link(feature.properties['VALUE'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">fid</th>\
+                        <td>' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
                     </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NomComGeog'] !== null ? autolinker.link(feature.properties['NomComGeog'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Surface'] !== null ? autolinker.link(feature.properties['Surface'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Bassin_Charente_0_0() {
+            return {
+                pane: 'pane_Bassin_Charente_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Bassin_Charente_0');
+        map.getPane('pane_Bassin_Charente_0').style.zIndex = 400;
+        map.getPane('pane_Bassin_Charente_0').style['mix-blend-mode'] = 'normal';
+        var layer_Bassin_Charente_0 = new L.geoJson(json_Bassin_Charente_0, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Bassin_Charente_0',
+            layerName: 'layer_Bassin_Charente_0',
+            pane: 'pane_Bassin_Charente_0',
+            onEachFeature: pop_Bassin_Charente_0,
+            style: style_Bassin_Charente_0_0,
+        });
+        bounds_group.addLayer(layer_Bassin_Charente_0);
+        function pop_TendancedvolutionduprintempsenCpardcnnnie_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['Decennie'] !== null ? autolinker.link(feature.properties['Decennie'].toLocaleString()) : '') + '</td>\
                     </tr>\
@@ -126,10 +192,10 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_TendancedvolutionauprintempsenCpardcennie_0_0(feature) {
+        function style_TendancedvolutionduprintempsenCpardcnnnie_1_0(feature) {
             if (feature.properties['Decennie'] >= -0.200000 && feature.properties['Decennie'] <= -0.100000 ) {
                 return {
-                pane: 'pane_TendancedvolutionauprintempsenCpardcennie_0',
+                pane: 'pane_TendancedvolutionduprintempsenCpardcnnnie_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.0)',
                 dashArray: '',
@@ -144,7 +210,7 @@
             }
             if (feature.properties['Decennie'] >= -0.100000 && feature.properties['Decennie'] <= 0.000000 ) {
                 return {
-                pane: 'pane_TendancedvolutionauprintempsenCpardcennie_0',
+                pane: 'pane_TendancedvolutionduprintempsenCpardcnnnie_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.0)',
                 dashArray: '',
@@ -159,7 +225,7 @@
             }
             if (feature.properties['Decennie'] >= 0.000000 && feature.properties['Decennie'] <= 0.100000 ) {
                 return {
-                pane: 'pane_TendancedvolutionauprintempsenCpardcennie_0',
+                pane: 'pane_TendancedvolutionduprintempsenCpardcnnnie_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.0)',
                 dashArray: '',
@@ -174,7 +240,7 @@
             }
             if (feature.properties['Decennie'] >= 0.100000 && feature.properties['Decennie'] <= 0.200000 ) {
                 return {
-                pane: 'pane_TendancedvolutionauprintempsenCpardcennie_0',
+                pane: 'pane_TendancedvolutionduprintempsenCpardcnnnie_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.0)',
                 dashArray: '',
@@ -189,7 +255,7 @@
             }
             if (feature.properties['Decennie'] >= 0.200000 && feature.properties['Decennie'] <= 0.300000 ) {
                 return {
-                pane: 'pane_TendancedvolutionauprintempsenCpardcennie_0',
+                pane: 'pane_TendancedvolutionduprintempsenCpardcnnnie_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.0)',
                 dashArray: '',
@@ -204,7 +270,7 @@
             }
             if (feature.properties['Decennie'] >= 0.300000 && feature.properties['Decennie'] <= 0.400000 ) {
                 return {
-                pane: 'pane_TendancedvolutionauprintempsenCpardcennie_0',
+                pane: 'pane_TendancedvolutionduprintempsenCpardcnnnie_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.0)',
                 dashArray: '',
@@ -219,7 +285,7 @@
             }
             if (feature.properties['Decennie'] >= 0.400000 && feature.properties['Decennie'] <= 0.500000 ) {
                 return {
-                pane: 'pane_TendancedvolutionauprintempsenCpardcennie_0',
+                pane: 'pane_TendancedvolutionduprintempsenCpardcnnnie_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.0)',
                 dashArray: '',
@@ -234,7 +300,7 @@
             }
             if (feature.properties['Decennie'] >= 0.500000 && feature.properties['Decennie'] <= 6.000000 ) {
                 return {
-                pane: 'pane_TendancedvolutionauprintempsenCpardcennie_0',
+                pane: 'pane_TendancedvolutionduprintempsenCpardcnnnie_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.0)',
                 dashArray: '',
@@ -249,7 +315,7 @@
             }
             if (feature.properties['Decennie'] >= 0.600000 && feature.properties['Decennie'] <= 0.700000 ) {
                 return {
-                pane: 'pane_TendancedvolutionauprintempsenCpardcennie_0',
+                pane: 'pane_TendancedvolutionduprintempsenCpardcnnnie_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.0)',
                 dashArray: '',
@@ -264,7 +330,7 @@
             }
             if (feature.properties['Decennie'] >= 0.700000 && feature.properties['Decennie'] <= 0.800000 ) {
                 return {
-                pane: 'pane_TendancedvolutionauprintempsenCpardcennie_0',
+                pane: 'pane_TendancedvolutionduprintempsenCpardcnnnie_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.0)',
                 dashArray: '',
@@ -279,7 +345,7 @@
             }
             if (feature.properties['Decennie'] >= 0.800000 && feature.properties['Decennie'] <= 0.900000 ) {
                 return {
-                pane: 'pane_TendancedvolutionauprintempsenCpardcennie_0',
+                pane: 'pane_TendancedvolutionduprintempsenCpardcnnnie_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,0.0)',
                 dashArray: '',
@@ -293,21 +359,21 @@
             }
             }
         }
-        map.createPane('pane_TendancedvolutionauprintempsenCpardcennie_0');
-        map.getPane('pane_TendancedvolutionauprintempsenCpardcennie_0').style.zIndex = 400;
-        map.getPane('pane_TendancedvolutionauprintempsenCpardcennie_0').style['mix-blend-mode'] = 'normal';
-        var layer_TendancedvolutionauprintempsenCpardcennie_0 = new L.geoJson(json_TendancedvolutionauprintempsenCpardcennie_0, {
+        map.createPane('pane_TendancedvolutionduprintempsenCpardcnnnie_1');
+        map.getPane('pane_TendancedvolutionduprintempsenCpardcnnnie_1').style.zIndex = 401;
+        map.getPane('pane_TendancedvolutionduprintempsenCpardcnnnie_1').style['mix-blend-mode'] = 'normal';
+        var layer_TendancedvolutionduprintempsenCpardcnnnie_1 = new L.geoJson(json_TendancedvolutionduprintempsenCpardcnnnie_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_TendancedvolutionauprintempsenCpardcennie_0',
-            layerName: 'layer_TendancedvolutionauprintempsenCpardcennie_0',
-            pane: 'pane_TendancedvolutionauprintempsenCpardcennie_0',
-            onEachFeature: pop_TendancedvolutionauprintempsenCpardcennie_0,
-            style: style_TendancedvolutionauprintempsenCpardcennie_0_0,
+            dataVar: 'json_TendancedvolutionduprintempsenCpardcnnnie_1',
+            layerName: 'layer_TendancedvolutionduprintempsenCpardcnnnie_1',
+            pane: 'pane_TendancedvolutionduprintempsenCpardcnnnie_1',
+            onEachFeature: pop_TendancedvolutionduprintempsenCpardcnnnie_1,
+            style: style_TendancedvolutionduprintempsenCpardcnnnie_1_0,
         });
-        bounds_group.addLayer(layer_TendancedvolutionauprintempsenCpardcennie_0);
-        map.addLayer(layer_TendancedvolutionauprintempsenCpardcennie_0);
-        function pop_Coursdeau_1(feature, layer) {
+        bounds_group.addLayer(layer_TendancedvolutionduprintempsenCpardcnnnie_1);
+        map.addLayer(layer_TendancedvolutionduprintempsenCpardcnnnie_1);
+        function pop_Coursdeau_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -352,103 +418,34 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Coursdeau_1_0() {
+        function style_Coursdeau_2_0() {
             return {
-                pane: 'pane_Coursdeau_1',
+                pane: 'pane_Coursdeau_2',
                 opacity: 1,
                 color: 'rgba(89,157,235,1.0)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
-                weight: 2.0,
+                weight: 1.0,
                 fillOpacity: 0,
                 interactive: false,
             }
         }
-        map.createPane('pane_Coursdeau_1');
-        map.getPane('pane_Coursdeau_1').style.zIndex = 401;
-        map.getPane('pane_Coursdeau_1').style['mix-blend-mode'] = 'normal';
-        var layer_Coursdeau_1 = new L.geoJson(json_Coursdeau_1, {
+        map.createPane('pane_Coursdeau_2');
+        map.getPane('pane_Coursdeau_2').style.zIndex = 402;
+        map.getPane('pane_Coursdeau_2').style['mix-blend-mode'] = 'normal';
+        var layer_Coursdeau_2 = new L.geoJson(json_Coursdeau_2, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_Coursdeau_1',
-            layerName: 'layer_Coursdeau_1',
-            pane: 'pane_Coursdeau_1',
-            onEachFeature: pop_Coursdeau_1,
-            style: style_Coursdeau_1_0,
+            dataVar: 'json_Coursdeau_2',
+            layerName: 'layer_Coursdeau_2',
+            pane: 'pane_Coursdeau_2',
+            onEachFeature: pop_Coursdeau_2,
+            style: style_Coursdeau_2_0,
         });
-        bounds_group.addLayer(layer_Coursdeau_1);
-        map.addLayer(layer_Coursdeau_1);
-        function pop_Stationmtorologique_2(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (var i in e.target._eventParents) {
-                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
-                            e.target._eventParents[i].resetStyle(e.target);
-                        }
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['NOM_USUEL'] !== null ? autolinker.link(feature.properties['NOM_USUEL'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Saisons'] !== null ? '<img src="images/' + String(feature.properties['Saisons']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
-                    </tr>\
-                </table>';
-            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
-			});
-			layer.bindPopup(content, { maxHeight: 400 });
-        }
-
-        function style_Stationmtorologique_2_0() {
-            return {
-                pane: 'pane_Stationmtorologique_2',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(183,72,75,1.0)',
-                interactive: true,
-            }
-        }
-        map.createPane('pane_Stationmtorologique_2');
-        map.getPane('pane_Stationmtorologique_2').style.zIndex = 402;
-        map.getPane('pane_Stationmtorologique_2').style['mix-blend-mode'] = 'normal';
-        var layer_Stationmtorologique_2 = new L.geoJson(json_Stationmtorologique_2, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_Stationmtorologique_2',
-            layerName: 'layer_Stationmtorologique_2',
-            pane: 'pane_Stationmtorologique_2',
-            onEachFeature: pop_Stationmtorologique_2,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_Stationmtorologique_2_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_Stationmtorologique_2);
-        map.addLayer(layer_Stationmtorologique_2);
-        function pop_BassinversantCharente_3(feature, layer) {
+        bounds_group.addLayer(layer_Coursdeau_2);
+        map.addLayer(layer_Coursdeau_2);
+        function pop_BassinversantdelaCharente_3(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -487,9 +484,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_BassinversantCharente_3_0() {
+        function style_BassinversantdelaCharente_3_0() {
             return {
-                pane: 'pane_BassinversantCharente_3',
+                pane: 'pane_BassinversantdelaCharente_3',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -498,24 +495,24 @@
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(141,90,153,0.0)',
+                fillColor: 'rgba(255,255,255,0.0)',
                 interactive: false,
             }
         }
-        map.createPane('pane_BassinversantCharente_3');
-        map.getPane('pane_BassinversantCharente_3').style.zIndex = 403;
-        map.getPane('pane_BassinversantCharente_3').style['mix-blend-mode'] = 'normal';
-        var layer_BassinversantCharente_3 = new L.geoJson(json_BassinversantCharente_3, {
+        map.createPane('pane_BassinversantdelaCharente_3');
+        map.getPane('pane_BassinversantdelaCharente_3').style.zIndex = 403;
+        map.getPane('pane_BassinversantdelaCharente_3').style['mix-blend-mode'] = 'normal';
+        var layer_BassinversantdelaCharente_3 = new L.geoJson(json_BassinversantdelaCharente_3, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_BassinversantCharente_3',
-            layerName: 'layer_BassinversantCharente_3',
-            pane: 'pane_BassinversantCharente_3',
-            onEachFeature: pop_BassinversantCharente_3,
-            style: style_BassinversantCharente_3_0,
+            dataVar: 'json_BassinversantdelaCharente_3',
+            layerName: 'layer_BassinversantdelaCharente_3',
+            pane: 'pane_BassinversantdelaCharente_3',
+            onEachFeature: pop_BassinversantdelaCharente_3,
+            style: style_BassinversantdelaCharente_3_0,
         });
-        bounds_group.addLayer(layer_BassinversantCharente_3);
-        map.addLayer(layer_BassinversantCharente_3);
+        bounds_group.addLayer(layer_BassinversantdelaCharente_3);
+        map.addLayer(layer_BassinversantdelaCharente_3);
         function pop_Villes_4(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -564,7 +561,7 @@
         function style_Villes_4_0() {
             return {
                 pane: 'pane_Villes_4',
-                radius: 2.0,
+                radius: 4.0,
                 opacity: 1,
                 color: 'rgba(255,255,255,1.0)',
                 dashArray: '',
@@ -597,13 +594,83 @@
         });
         bounds_group.addLayer(layer_Villes_4);
         map.addLayer(layer_Villes_4);
+        function pop_Stationsmtorologiques_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_USUEL'] !== null ? autolinker.link(feature.properties['NOM_USUEL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Image'] !== null ? '<img src="images/' + String(feature.properties['Image']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Stationsmtorologiques_5_0() {
+            return {
+                pane: 'pane_Stationsmtorologiques_5',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(169,241,1,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Stationsmtorologiques_5');
+        map.getPane('pane_Stationsmtorologiques_5').style.zIndex = 405;
+        map.getPane('pane_Stationsmtorologiques_5').style['mix-blend-mode'] = 'normal';
+        var layer_Stationsmtorologiques_5 = new L.geoJson(json_Stationsmtorologiques_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Stationsmtorologiques_5',
+            layerName: 'layer_Stationsmtorologiques_5',
+            pane: 'pane_Stationsmtorologiques_5',
+            onEachFeature: pop_Stationsmtorologiques_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Stationsmtorologiques_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Stationsmtorologiques_5);
+        map.addLayer(layer_Stationsmtorologiques_5);
         var baseMaps = {};
         var overlaysTree = [
+            {label: '<img src="legend/Stationsmtorologiques_5.png" /> Stations météorologiques', layer: layer_Stationsmtorologiques_5},
             {label: '<img src="legend/Villes_4.png" /> Villes', layer: layer_Villes_4},
-            {label: '<img src="legend/BassinversantCharente_3.png" /> Bassin versant Charente', layer: layer_BassinversantCharente_3},
-            {label: '<img src="legend/Stationmtorologique_2.png" /> Station météorologique', layer: layer_Stationmtorologique_2},
-            {label: '<img src="legend/Coursdeau_1.png" /> Cours d eau', layer: layer_Coursdeau_1},
-            {label: 'Tendance d\'évolution au printemps en °C par décennie<br /><table><tr><td style="text-align: center;"><img src="legend/TendancedvolutionauprintempsenCpardcennie_0_02010.png" /></td><td>-0.2 - -0.1</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionauprintempsenCpardcennie_0_0101.png" /></td><td>-0,1 - 0</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionauprintempsenCpardcennie_0_0012.png" /></td><td>0 - 0,1</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionauprintempsenCpardcennie_0_01023.png" /></td><td>0,1 - 0,2</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionauprintempsenCpardcennie_0_02034.png" /></td><td>0,2 - 0,3</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionauprintempsenCpardcennie_0_03045.png" /></td><td>0,3 - 0,4</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionauprintempsenCpardcennie_0_04056.png" /></td><td>0,4 - 0,5</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionauprintempsenCpardcennie_0_05067.png" /></td><td>0.5 - 0.6</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionauprintempsenCpardcennie_0_06078.png" /></td><td>0.6 - 0.7</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionauprintempsenCpardcennie_0_07089.png" /></td><td>0.7 - 0.8</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionauprintempsenCpardcennie_0_080910.png" /></td><td>0.8 - 0.9</td></tr></table>', layer: layer_TendancedvolutionauprintempsenCpardcennie_0},]
+            {label: '<img src="legend/BassinversantdelaCharente_3.png" /> Bassin versant de la Charente', layer: layer_BassinversantdelaCharente_3},
+            {label: '<img src="legend/Coursdeau_2.png" /> Cours d\'eau', layer: layer_Coursdeau_2},
+            {label: 'Tendance d\'évolution du printemps en °C par décénnnie<br /><table><tr><td style="text-align: center;"><img src="legend/TendancedvolutionduprintempsenCpardcnnnie_1_02010.png" /></td><td>-0.2 - -0.1</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionduprintempsenCpardcnnnie_1_0101.png" /></td><td>-0,1 - 0</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionduprintempsenCpardcnnnie_1_0012.png" /></td><td>0 - 0,1</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionduprintempsenCpardcnnnie_1_01023.png" /></td><td>0,1 - 0,2</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionduprintempsenCpardcnnnie_1_02034.png" /></td><td>0,2 - 0,3</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionduprintempsenCpardcnnnie_1_03045.png" /></td><td>0,3 - 0,4</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionduprintempsenCpardcnnnie_1_04056.png" /></td><td>0,4 - 0,5</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionduprintempsenCpardcnnnie_1_05067.png" /></td><td>0.5 - 0.6</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionduprintempsenCpardcnnnie_1_06078.png" /></td><td>0.6 - 0.7</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionduprintempsenCpardcnnnie_1_07089.png" /></td><td>0.7 - 0.8</td></tr><tr><td style="text-align: center;"><img src="legend/TendancedvolutionduprintempsenCpardcnnnie_1_080910.png" /></td><td>0.8 - 0.9</td></tr></table>', layer: layer_TendancedvolutionduprintempsenCpardcnnnie_1},
+            {label: '<img src="legend/Bassin_Charente_0.png" /> Bassin_Charente', layer: layer_Bassin_Charente_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
             //selectorBack: false,
@@ -621,7 +688,7 @@
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['NOM'] !== null?String('<div style="color: #323232; font-size: 8pt; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['NOM']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Villes_4'});
+            layer.bindTooltip((layer.feature.properties['NOM'] !== null?String('<div style="color: #323232; font-size: 6pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['NOM']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Villes_4'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
